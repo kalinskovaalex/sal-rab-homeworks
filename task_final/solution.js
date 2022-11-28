@@ -33,28 +33,28 @@
 //    }
 // }
 
-let client = '';
-let goods = [
-    {title: "Пицца", count: 1},
-    {title: "Чебурек", count: 1}
-];
-let order = {address: "ул. Ленина, дом 24, подъезд, 5 этаж, кв 53", sum: 900};
+function sendRequest(name, phone, address, goods, sum) {
+    let data = {goods: [], order: {}};
 
-function sendRequest() {
-    let data = {client, order, goods};
+    let countOfGoods = goods.length;
 
-    //let countOfGoods = goods.length;
-
-       for (let i = 0; i < goods.length; i++) {
+    for (let i = 0; i < countOfGoods; i ++) {
         data.goods.push({title:goods[i].title, count:goods[i].count});
-    }
+    };
 
-    data.order.address = order.address;
-    data.order.sum = order.sum;
+      function addressToString() {
+    return `'ул. ${address.street}, дом ${address.house}, ${address.entrance} подъезд, ${address.floor} этаж, кв. ${address.flat}'`}; 
+  
+    data.order.address = addressToString;
 
-    data.client = 'Иван +7(987)65-43-210';
+  // {return `'ул. ${address.street}, дом ${address.house}, ${address.entrance} подъезд, ${address.floor} этаж, кв. ${address.flat}'`;} 
    
-    let jsonData = JSON.stringify(data);
+         
+    data.order.sum = sum;
+
+    data.client = name + " " + phone;
+
+    let jsonData = JSON.stringify({data});
 
     return jsonData;
 }
